@@ -1,0 +1,1 @@
+Mais informações em: http://www.guj.com.br/15423-projeto-ejb-no-jboss-as-7-dando-loop-no-log-quando-da-erro-de-banco
