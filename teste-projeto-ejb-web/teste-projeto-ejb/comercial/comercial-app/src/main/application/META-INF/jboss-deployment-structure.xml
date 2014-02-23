@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.0">
+	<ear-subdeployments-isolated>false</ear-subdeployments-isolated>
+	
+	<deployment>
+		<dependencies>
+			<module name="com.sun.jsf-impl" />
+			<module name="javax.faces.api" />
+		</dependencies>
+	</deployment>
+
+	<sub-deployment name="comercial-business.jar">
+		<dependencies>
+		</dependencies>
+	</sub-deployment>
+	
+	<sub-deployment name="comercial-web.war">
+		<dependencies>
+			<module name="com.sun.jsf-impl" />
+			<module name="javax.faces.api" />
+		</dependencies>
+	</sub-deployment>
+	
+</jboss-deployment-structure>

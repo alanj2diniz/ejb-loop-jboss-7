@@ -1,0 +1,83 @@
+<ui:composition
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:commons-layout="http://portal.mrg.com.br/commons-layout">
+	
+	<commons-layout:topBar usuarioLogado="#{pedidoController.razaoSocial}" />
+	
+	<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();" onerror="statusDialog.hide();" oncomplete="statusDialog.hide();"/>  
+	
+	<p:dialog modal="false" id="ajaxDialog" widgetVar="statusDialog" header="" showEffect="fade" hideEffect="fade"  
+	        draggable="false" closable="false" resizable="false" width="">
+	    	
+	    	<div style="text-align: center">
+		    	<p:graphicImage value="/pages/img/ajax-loader-white.gif" />
+		    	<br/><br/>
+		    	<h:outputText value="Aguarde, processando" /> 
+	      	</div>
+	      	
+	</p:dialog>  
+	
+	<div id="header">
+	
+		<div class="container_24 clearfix">
+			<div class="grid_24" style=" margin-top: -72px; z-index: 9999">
+			
+				<h:form>
+					<h:commandLink action="/pages/index.xhtml" title="Ir para o Inicio" styleClass="relative">
+						<img class="logo" src="img/logo-pedidos.png" width="290" height="64" alt="Morena Rosa Group" />
+					</h:commandLink>
+				</h:form>
+				
+				<ui:remove>
+				<h:form class="searchHeader" acceptcharset="ISO-8859-1">
+					<h:inputText id="campoBusca" value="#{consultaReferenciaController.buscaGeral}"/>
+					<p:watermark value="Digite aqui sua busca" for="campoBusca" />
+					<h:commandButton action="#{consultaReferenciaController.buscarGeral}" class="lupa" />
+				</h:form>
+				</ui:remove>
+			</div>
+		</div>
+	
+		<div class="nav clearfix">
+			<div class="container_24">
+				<div class="grid_24">
+					<h:form>
+						<ul>
+							<li><h:commandLink action="/pages/index.xhtml?faces-redirect=true" title="Home" value="Home" /></li>
+							<li>
+								<h:commandLink title="Pedidos multimarcas" value="Multimarcas" action="#{pedidoController.abrirMultimarca}" >
+									<f:setPropertyActionListener target="#{pedidoController.tituloPagina}" value="Pedidos multimarca" />
+									<f:setPropertyActionListener target="#{pedidoController.mostrarCanal}" value="#{false}" />
+									<f:setPropertyActionListener target="#{pedidoController.paginaTablePedidosCapa}" value="#{0}" />
+								</h:commandLink>
+							</li>
+							<li>
+								<h:commandLink title="Pedido feitos na Loja Virtual" value="Loja Virtual" action="#{pedidoController.abrirB2b}">
+									<f:setPropertyActionListener target="#{pedidoController.tituloPagina}" value="Pedidos da Loja Virtual" />
+									<f:setPropertyActionListener target="#{pedidoController.mostrarCanal}" value="#{false}" />
+									<f:setPropertyActionListener target="#{pedidoController.paginaTablePedidosCapa}" value="#{0}" />
+								</h:commandLink>
+							</li>
+							<li>
+								<h:commandLink action="#{pedidoController.abrirTodos}" title="Todos Pedidos" value="Todos Pedidos">
+									<f:setPropertyActionListener target="#{pedidoController.tituloPagina}" value="Todos os Pedido" />
+									<f:setPropertyActionListener target="#{pedidoController.mostrarCanal}" value="#{true}" />
+									<f:setPropertyActionListener target="#{pedidoController.pedidoCapaSearchVO.canal}" value="#{null}" />
+									<f:setPropertyActionListener target="#{pedidoController.paginaTablePedidosCapa}" value="#{0}" />
+								</h:commandLink>
+							</li>
+						</ul>
+					</h:form>
+				
+				</div>
+			</div>
+		</div>
+	
+	<div>
+	</div>
+
+</div>
+</ui:composition>

@@ -1,0 +1,206 @@
+<ui:composition template="/pages/inc/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<ui:define name="header" />
+
+	<ui:define name="content">
+	
+		<div class="grid_24">
+			<br /> <br />
+			
+			<h:form>
+				<p:commandButton value="teste" action="#{testeController.testar}"/>
+			</h:form>
+			
+			<div class="ui-messages ui-widget" aria-live="polite">
+				<div class="ui-messages-warn ui-corner-all">
+					<span class="ui-messages-warn-icon"></span>
+					<ul><li><span class="ui-messages-warn-summary">Atenção:</span><span class="ui-messages-warn-detail">Os pedidos apenas estarão disponíveis para consulta após 24hrs a sua emissão.</span></li></ul>
+				</div>
+			</div> <br />
+			
+		<h:form>	
+			<p:panel header="5 últimos pedidos feitos através de representantes">
+				<p:dataTable emptyMessage="Nenhum pedido encontrado" value="#{homeController.pedidosMultimarca}" var="multimarca">
+				
+			       <p:columnGroup type="header">  
+			            <p:row>  
+			               <p:column colspan="4" />
+			                <p:column colspan="1" headerText="Data" />
+			               <p:column colspan="4" headerText="Quantidade de Itens"/>
+			               <p:column colspan="1" headerText="Valor" />
+			               <p:column colspan="1"/>
+			            </p:row>  
+			            <p:row>  
+			                <p:column colspan="1"  headerText="Número"/>
+			                <p:column colspan="1"  headerText="Origem"/>
+			                <p:column colspan="1"  headerText="Canal"/>
+			                <p:column colspan="1"  headerText="CNPJ"/>
+			                <p:column colspan="1"  headerText="Emissão"/>
+			                <p:column colspan="1"  headerText="Solicitado"/>
+			                <p:column colspan="1"  headerText="Aberto"/>
+			                <p:column colspan="1"  headerText="Faturado"/>
+			                <p:column colspan="1"  headerText="Cancelado"/>
+			                <p:column colspan="1"  headerText="Total"/>
+			                <p:column colspan="1" headerText="Opções"/>
+			            </p:row> 
+			         </p:columnGroup>
+			         
+			   		<p:column>
+			   			<h:outputText value="#{multimarca.numeroPedido}"/>
+			   		</p:column>	
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{multimarca.origem}"/>
+			   		</p:column>
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{multimarca.canal}"/>
+			   		</p:column>	
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{multimarca.clienteCnpj}"/>
+			   		</p:column>
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{multimarca.emissao}"><f:convertDateTime locale="pt_BR" /></h:outputText>
+			   		</p:column>
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{multimarca.quantidadeSolicitada}"/>
+			   		</p:column>	
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{multimarca.quantidadeAberta}"/>
+			   		</p:column>
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{multimarca.quantidadeFaturada}"/>
+			   		</p:column>
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{multimarca.quantidadeCancelada}"/>
+			   		</p:column>
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{multimarca.valorTotalLiquido}"><f:convertNumber locale="pt_BR" type="currency"/></h:outputText>
+			   		</p:column>
+			   		
+			   		<p:column>
+			   			<p:commandButton icon="ui-icon-plusthick" title="Veja o pedido detalhado" action="#{pedidoController.abrirDetalhe}" ajax="false" >
+			   				<f:setPropertyActionListener target="#{pedidoController.pedidoDetalhe.pedidoCapa}" value="#{multimarca}" />
+			   			</p:commandButton>
+			   		</p:column>
+					
+				</p:dataTable>
+
+				<br />
+					<h:commandLink title="Pedidos feitos através de representantes" value="Ver todos multimarca" action="#{pedidoController.abrirMultimarca}" styleClass="right" style="text-decoration: underline;">
+						<f:setPropertyActionListener target="#{pedidoController.tituloPagina}" value="Pedidos da Coleção Atual" />
+						<f:setPropertyActionListener target="#{pedidoController.mostrarCanal}" value="#{false}" />
+						<f:setPropertyActionListener target="#{pedidoController.paginaTablePedidosCapa}" value="#{0}" />
+					</h:commandLink>
+				<br />
+			</p:panel>
+		</h:form>
+		
+		<br /><br />
+		
+		<h:form>	
+			<p:panel header="5 últimos pedidos feitos na loja virtual">
+				<p:dataTable emptyMessage="Nenhum pedido encontrado" value="#{homeController.pedidosSaldo}" var="saldo">
+				
+			       <p:columnGroup type="header">  
+			            <p:row>  
+			               <p:column colspan="4" />
+			                <p:column colspan="1" headerText="Data" />
+			               <p:column colspan="4" headerText="Quantidade de Itens"/>
+			               <p:column colspan="1" headerText="Valor" />
+			               <p:column colspan="1"/>
+			            </p:row>  
+			            <p:row>  
+			                <p:column colspan="1"  headerText="Número"/>
+			                <p:column colspan="1"  headerText="Origem"/>
+			                <p:column colspan="1"  headerText="Canal"/>
+			                <p:column colspan="1"  headerText="CNPJ"/>
+			                <p:column colspan="1"  headerText="Emissão"/>
+			                <p:column colspan="1"  headerText="Solicitado"/>
+			                <p:column colspan="1"  headerText="Aberto"/>
+			                <p:column colspan="1"  headerText="Faturado"/>
+			                <p:column colspan="1"  headerText="Cancelado"/>
+			                <p:column colspan="1"  headerText="Total"/>
+			                <p:column colspan="1" headerText="Opções"/>
+			            </p:row> 
+			         </p:columnGroup>
+			         
+			   		<p:column>
+			   			<h:outputText value="#{saldo.numeroPedido}"/>
+			   		</p:column>	
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{saldo.origem}"/>
+			   		</p:column>
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{saldo.canal}"/>
+			   		</p:column>	
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{saldo.clienteCnpj}"/>
+			   		</p:column>
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{saldo.emissao}"><f:convertDateTime locale="pt_BR" /></h:outputText>
+			   		</p:column>
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{saldo.quantidadeSolicitada}"/>
+			   		</p:column>	
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{saldo.quantidadeAberta}"/>
+			   		</p:column>
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{saldo.quantidadeFaturada}"/>
+			   		</p:column>
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{saldo.quantidadeCancelada}"/>
+			   		</p:column>
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{saldo.valorTotalLiquido}"><f:convertNumber locale="pt_BR" type="currency"/></h:outputText>
+			   		</p:column>
+			   		
+			   		<p:column>
+			   			<p:commandButton icon="ui-icon-plusthick" title="Abrir detalhes" action="#{pedidoController.abrirDetalhe}" ajax="false" >
+			   				<f:setPropertyActionListener target="#{pedidoController.pedidoDetalhe.pedidoCapa}" value="#{saldo}" />
+			   			</p:commandButton>
+			   		</p:column>
+					
+				</p:dataTable>
+
+				<br />
+					<h:commandLink title="Pedido feitos na Loja Virtual" value="Ver todos saldo" action="#{pedidoController.abrirB2b}" styleClass="right" style="text-decoration: underline;">
+						<f:setPropertyActionListener target="#{pedidoController.tituloPagina}" value="Pedidos de Saldo" />
+						<f:setPropertyActionListener target="#{pedidoController.mostrarCanal}" value="#{false}" />
+						<f:setPropertyActionListener target="#{pedidoController.paginaTablePedidosCapa}" value="#{0}" />
+					</h:commandLink>
+				<br />
+			</p:panel>
+		</h:form>
+			
+		</div>
+		
+		<div class="clearfix"></div>
+		
+	</ui:define>
+
+	<ui:define name="footer" />
+
+</ui:composition>

@@ -1,0 +1,208 @@
+<ui:composition template="/pages/inc/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<ui:define name="header" />
+
+	<ui:define name="content">
+	
+		<div class="grid_24">
+
+		<h1>#{pedidoController.tituloPagina}</h1>
+			<h:form>
+				<p:panel header="Filtro pedidos">
+					<h:panelGrid columns="4">
+						<h:outputText value="Data emissão: " />
+						<p:calendar locale="pt" showButtonPanel="true" navigator="true" value="#{pedidoController.pedidoCapaSearchVO.emissaoInicio}" />
+						<h:outputText value=" até " style="margin: 15px"/>
+						<p:calendar locale="pt" showButtonPanel="true" navigator="true" value="#{pedidoController.pedidoCapaSearchVO.emissaoFim}" />
+
+						<h:outputText value="Número pedido: "/>
+						<p:inputText value="#{pedidoController.pedidoCapaSearchVO.numeroPedido}" />
+						
+						<h:outputText value=" Origem: " style="margin: 15px;"/>
+						<p:inputText value="#{pedidoController.pedidoCapaSearchVO.origem}" />
+						
+						<h:outputText value="Canal: " rendered="#{pedidoController.mostrarCanal}"/>
+						<p:selectOneMenu value="#{pedidoController.pedidoCapaSearchVO.canal}" style="width: 220px" rendered="#{pedidoController.mostrarCanal}">
+							<f:selectItem itemLabel="Todos" itemValue="" />
+							<f:selectItem itemLabel="Representante" itemValue="MULTIMARCA" />
+							<f:selectItem itemLabel="Loja Virtual" itemValue="SALDO" />
+							<f:selectItem itemLabel="Outros" itemValue="OUTROS" />
+						</p:selectOneMenu>
+						
+						<h:outputText value="Marca: " style="margin: 15px;"/>
+						<p:column>
+				    		<h:selectOneMenu value="#{pedidoController.pedidoCapaSearchVO.marcaBase}" >
+				    			<f:selectItem itemLabel="Todas" itemValue="" />
+				    			<f:selectItems value="#{comercialController.marcas}" var="marca" itemValue="#{marca.base}" itemLabel="#{marca.descricao}" />
+				    		</h:selectOneMenu>
+			    		</p:column>
+						
+					</h:panelGrid>
+					
+					<p align="right">
+						<p:commandButton value="Consultar" styleClass="btn btnVerde" actionListener="#{pedidoController.pesquisar}" update="tablePedidos"/>
+					</p>
+				</p:panel>
+				
+				<div class="ui-messages ui-widget" aria-live="polite">
+					<div class="ui-messages-warn ui-corner-all">
+						<a href="#" class="ui-messages-close" onclick="$(this).parent().slideUp();return false;"> 
+						<span class="ui-icon ui-icon-close"></span></a><span class="ui-messages-warn-icon"></span>
+						<ul><li><span class="ui-messages-warn-summary">Atenção:</span><span class="ui-messages-warn-detail">Os pedidos apenas estarão disponíveis para consulta após 24hrs a sua emissão.</span></li></ul>
+					</div>
+			</div>
+	
+				<br />
+			
+				<p:dataTable value="#{pedidoController.pedidosCapaLazy}" var="pedidoCapa"  rows="15" lazy="true" paginator="true" id="tablePedidos" first="#{pedidoController.paginaTablePedidosCapa}"
+			   			emptyMessage="Nenhum pedido encontrado" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			   			currentPageReportTemplate="Página ({currentPage} de {totalPages}) | Total de #{pedidoController.pedidoCapaSearchVO.totalRegistros} pedidos">
+			   			
+			   		<p:ajax event="rowToggle" listener="#{pedidoController.expandRowPedido}" />  
+			   		
+			   		 <p:columnGroup type="header">  
+			            <p:row>  
+			               <p:column colspan="1"/>
+			               <p:column colspan="4" />
+			                <p:column colspan="1" headerText="Data" />
+			               <p:column colspan="4" headerText="Quantidade de Itens"/>
+			               <p:column colspan="1" headerText="Valor" />
+			               <p:column colspan="1"/>
+			            </p:row>  
+			            <p:row>  
+			             	<p:column colspan="1" />
+			                <p:column colspan="1"  headerText="Número"/>
+			                <p:column colspan="1"  headerText="Origem"/>
+			                <p:column colspan="1"  headerText="Canal"/>
+			                <p:column colspan="1"  headerText="CNPJ"/>
+			                <p:column colspan="1"  headerText="Emissão"/>
+			                <p:column colspan="1"  headerText="Solicitado"/>
+			                <p:column colspan="1"  headerText="Aberto"/>
+			                <p:column colspan="1"  headerText="Faturado"/>
+			                <p:column colspan="1"  headerText="Cancelado"/>
+			                <p:column colspan="1"  headerText="Total"/>
+			                <p:column colspan="1" headerText="Opções"/>
+			            </p:row> 
+			         </p:columnGroup>
+			         
+			        <p:column style="width:2%">  
+		            	<p:rowToggler />  
+		        	</p:column>  
+		        	
+			   		<p:column>
+			   			<h:outputText value="#{pedidoCapa.numeroPedido}"/>
+			   		</p:column>	
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{pedidoCapa.origem}"/>
+			   		</p:column>
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{pedidoCapa.canal}"/>
+			   		</p:column>	
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{pedidoCapa.clienteCnpj}"/>
+			   		</p:column>
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{pedidoCapa.emissao}"><f:convertDateTime locale="pt_BR" /></h:outputText>
+			   		</p:column>
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{pedidoCapa.quantidadeSolicitada}"/>
+			   		</p:column>	
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{pedidoCapa.quantidadeAberta}"/>
+			   		</p:column>
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{pedidoCapa.quantidadeFaturada}"/>
+			   		</p:column>
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{pedidoCapa.quantidadeCancelada}"/>
+			   		</p:column>
+			   		
+			   		<p:column>
+			   			<h:outputText value="#{pedidoCapa.valorTotalLiquido}"><f:convertNumber locale="pt_BR" type="currency"/></h:outputText>
+			   		</p:column>
+			   		
+			   		<p:column>
+			   			<p:commandButton icon="ui-icon-plusthick" title="Veja o pedido detalhado" action="#{pedidoController.abrirDetalhe}" ajax="false">
+			   				<f:setPropertyActionListener target="#{pedidoController.pedidoDetalhe.pedidoCapa}" value="#{pedidoCapa}" />
+			   			</p:commandButton>
+			   		</p:column>
+			   		
+			   		 <p:rowExpansion> 
+			   		 	<p:panel header="Informações adicionais">
+			   		 
+			   		 	<p:dataTable var="pedido" value="#{pedidoCapa.pedidos}">  
+			   		 		<p:column headerText="Status">
+			   					<h:outputText value="#{pedido.status}"/>
+					   		</p:column>	
+					   		
+					   		<p:column headerText="Quantidade de Itens">
+					   			<h:outputText value="#{pedido.quantidadeItens}"/>
+					   		</p:column>
+					   		
+					   		<p:column headerText="Valor">
+					   			<h:outputText value="#{pedido.valorTotal}"><f:convertNumber locale="pt_BR" type="currency"/></h:outputText>
+					   		</p:column>	
+					   		
+					   		<p:column headerText="Data Faturamento">
+					   			<h:outputText value="#{pedido.dataFaturamento}"><f:convertDateTime locale="pt_BR" /></h:outputText>
+					   		</p:column>	
+			   		 	</p:dataTable>
+			   		 	
+			   		 	</p:panel>
+			   		 	
+			   		 </p:rowExpansion>
+			   		
+			   		
+			   	</p:dataTable>	
+			</h:form>
+				<br />	<br />	
+		</div>
+		
+		<script>
+        	PrimeFaces.locales['pt'] = {  
+                closeText: 'Fechar',  
+                prevText: 'Anterior',  
+                nextText: 'Próximo',  
+                currentText: 'Começo',  
+                monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],  
+                monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun', 'Jul','Ago','Set','Out','Nov','Dez'],  
+                dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],  
+                dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],  
+                dayNamesMin: ['D','S','T','Q','Q','S','S'],  
+                weekHeader: 'Semana',  
+                firstDay: 1,  
+                isRTL: false,  
+                showMonthAfterYear: false,  
+                yearSuffix: '',  
+                timeOnlyTitle: 'Só Horas',  
+                timeText: 'Tempo',  
+                hourText: 'Hora',  
+                minuteText: 'Minuto',  
+                secondText: 'Segundo',  
+                currentText: 'Data Atual',  
+                ampm: false,  
+                month: 'Mês',  
+                week: 'Semana',  
+                day: 'Dia',  
+                allDayText: 'Todo Dia'  
+            };  
+        </script>
+		
+	</ui:define>
+
+	<ui:define name="footer" />
+
+</ui:composition>

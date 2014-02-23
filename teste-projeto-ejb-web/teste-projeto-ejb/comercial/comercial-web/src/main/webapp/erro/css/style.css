@@ -1,0 +1,164 @@
+/*
+	CSS RESET
+*/
+
+html, body, div, span, input, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video{ font-size: 100%; font: inherit; vertical-align: baseline; margin: 0; padding: 0; border: none; text-decoration: none }
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary{ display: block }
+body{ line-height: 1 }
+blockquote, q{ quotes: none }
+blockquote:before, blockquote:after, q:before, q:after{	content: none }
+table{ border-collapse: collapse; border-spacing: 0 }
+em{ font-style: italic }
+strong{ font-weight: bold }
+* { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+/* forms */
+label{ display: block; cursor: pointer; font-size: 0.750em;	margin: 0 0 8px 0; text-align: left; }
+[type="button"]{ border: none; cursor: pointer }
+[type="submit"]{ cursor: pointer }
+input, textarea, select{ /*text-indent: 8px;*/ width: 100%; font-size: 0.688em;	color: #999 }
+input{ border: 1px solid #ccc; background: #E9E9E9; height: 40px; line-height: 40px; }
+input[type="checkbox"], input[type="radio"] { width: 13px; height: 13px; float: left; margin: 3px 5px 0 0; cursor: pointer; }
+input:focus{ background: #eee }
+textarea{ border: 1px solid #ccc; background: #E9E9E9; height: 100px; margin: 0 0 20px 0 }
+textarea:focus{ background: #eee }
+select{ border: 1px solid #ccc; /*height: 30px; line-height: 30px;*/ padding: 6px 0 }
+:focus, :active{ outline: none; }
+
+/*
+	STRUCTURE FIXED FOOTER
+*/
+
+html, body, .wrapper { height: 100% }
+body > .wrapper { height: auto;	min-height: 100%; margin-bottom:-130px; }
+.content_main { padding-bottom: 130px; position: relative }
+.content_footer {  height: 130px; clear: both; position: relative }
+
+/*
+	BEGIN SITE STYLE
+*/
+
+input[type=text]{
+	padding-left:10px !important;
+}
+
+body{ font-family: Tahoma, sans-serif; color: #666; font-size: 16px; background: url(../img/bg-pattern.jpg) #fff }
+::-moz-selection { background: #cc0066; color: #fff; text-shadow: none }
+::selection { background: #cc0066; color: #fff; text-shadow: none }
+
+h1{ font-size: 2.000em; color: #888888; text-transform: uppercase; margin: 0 0 15px 0 }
+h2{ font-size: 1.500em; color: #888888; text-transform: uppercase; margin: 0 0 15px 0 }
+h3{ font-size: 1.200em; color: #FF7F00; margin: 0 0 15px 0; font-weight: bold; }
+h4{ font-size: 1.833em }
+h5{ font-size: 1.667em }
+h6{ font-size: 1.500em }
+
+p { font-size: 0.900em; line-height: 20px; }
+
+a { color: #666; }
+a:hover { color: #999; }
+
+.content{ padding: 20px 0 }
+
+
+/* btn's */
+.btn{
+	padding: 5px 8px;
+	font-weight: bold;
+	font-size: 0.750em;
+	color: #fff;
+	border-radius: 0;
+	border: none;
+	border-radius: 8px
+}
+.btn:hover{
+	color: #fff
+}
+.btnBranco{
+	background: #fff;
+	color: #4E9CB5;
+}
+.btnBranco:hover, .btnBranco:focus{
+	background: #6E6D70;
+}
+.btnAzul{
+	background: #4D9BB4;
+}
+.btnAzul:hover, .btnAzul:focus{
+	background: #68AABF;
+}
+
+.btnAzulEscuro{
+	background: #3D5372;
+}
+.btnAzulEscuro:hover, .btnAzulEscuro:focus{
+	background: #526e96;
+}
+
+
+.btnVermelho {
+	background: #b44d4d;
+}
+.btnVermelho:hover, .btnVermelho:focus{
+	background: #bf6868;
+}
+
+.btnVerde{
+	background: #008C00;
+}
+.btnLaranja{
+	background: #FFA500;
+}
+.btnVerde:hover, .btnVerde:focus{
+	background: #00AE00
+}
+.btnVermelho{
+	background: #d92d2d;
+}
+.btnVermelho:hover, .btnVermelho:focus{
+	background: #e35151;
+}
+.btnAmarelo{
+	background: #d7a612;
+}
+.btnAmarelo:hover, .btnAmarelo:focus{
+	background: #e2b42b;
+}
+
+/* header */
+#header{
+	/* margin-top: 145px */
+	padding-top:145px;
+}
+
+.logo{
+	float: left;
+	z-index: 9999999;
+	display: block;
+}
+	
+
+/*
+	END SITE STYLE
+*/
+
+
+/*
+	CLASSES STANDARDS
+*/
+
+.text p{ margin-bottom: 20px }
+.relative{ position: relative }
+.txtLaranja{ color: #FF7F00 !important }
+.txtPreto{ color: #000000 !important }
+.txtAzul{ color: #4D9BB4 !important }
+.txtVermelho{ color: #D90000 !important }
+.txtVerde{ color: #00AE00 !important }
+.algCenter{ text-align: center }
+.fLeft{ float: left }
+.fRight{ float: right }
+.clear{ clear: both; display: block; overflow: hidden; visibility: hidden; width: 0; height: 0  }
+.clearfix:after { content:"."; display:block; height:0; clear:both; visibility: hidden; }
+.clearfix { display:inline; }
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+
